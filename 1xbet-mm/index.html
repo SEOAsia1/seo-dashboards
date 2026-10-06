@@ -8,7 +8,7 @@
 :root{
   --bg:#f4f6fb;--bg2:#eef1f8;--panel:#fff;--line:#e2e8f0;--brd:#dde3ed;
   --txt:#0d1b2e;--mut:#6b7a99;--mut2:#9aa5be;
-  --acc:#C8102E;--acc-dim:#fde8ec;
+  --acc:#032EA1;--acc-dim:#dbeafe;
   --pos:#16a34a;--neg:#dc2626;--gold:#c9a84c;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -19,15 +19,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .dash-header h1 span{color:var(--acc)}
 .dash-meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.3px}
-.badge-mm{background:#fff0f2;color:var(--acc);border:1px solid #fca5b0}
-.badge-src{background:var(--acc-dim);color:var(--acc);border:1px solid #fca5b0}
+.badge-kh{background:#eff6ff;color:var(--acc);border:1px solid #bfdbfe}
+.badge-src{background:var(--acc-dim);color:var(--acc);border:1px solid #bfdbfe}
 .badge-date{background:var(--bg2);color:var(--mut);border:1px solid var(--brd)}
 section{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:20px;box-shadow:0 1px 2px rgba(13,27,51,.05)}
 section h2{font-size:13px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
 .s-sub{font-size:11px;color:var(--mut2);margin-bottom:16px}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
 .kpi{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
-.kpi.blue{background:var(--acc-dim);border-color:#fca5b0}
+.kpi.blue{background:var(--acc-dim);border-color:#bfdbfe}
 .kpi .l{font-size:10px;font-weight:700;color:var(--mut2);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
 .kpi .v{font-size:26px;font-weight:800;color:var(--txt);line-height:1}
 .kpi .x{font-size:11px;color:var(--mut2);margin-top:4px}
@@ -39,8 +39,8 @@ thead th{padding:9px 12px;text-align:right;font-size:10px;font-weight:700;color:
 thead th:first-child{text-align:left}
 tbody tr{border-top:1px solid var(--line);transition:background .1s}
 tbody tr:hover{background:var(--bg2)}
-tbody tr.own{background:#fff0f2}
-tbody tr.own:hover{background:#fde8ec}
+tbody tr.own{background:#eff6ff}
+tbody tr.own:hover{background:#dbeafe}
 td{padding:10px 12px;text-align:right}
 td:first-child{text-align:left;font-weight:600}
 .domain-cell{display:flex;align-items:center;gap:8px}
@@ -74,7 +74,7 @@ footer{text-align:center;font-size:11px;color:var(--mut2);padding:20px 0 8px;lin
     <div style="font-size:12px;color:var(--mut);margin-top:3px">Органічна видимість · Конкурентний аналіз · Гео: Myanmar 🇲🇲</div>
   </div>
   <div class="dash-meta">
-    <span class="badge badge-mm">🇲🇲 Myanmar · MM Geo</span>
+    <span class="badge badge-kh">🇲🇲 Myanmar · MM Geo</span>
     <span class="badge badge-src">Ahrefs</span>
     <span class="badge badge-date">Жовтень 2026</span>
   </div>
@@ -176,6 +176,7 @@ footer{text-align:center;font-size:11px;color:var(--mut2);padding:20px 0 8px;lin
 </div>
 <script>
 const F = n => n==null?'—':n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?Math.round(n/100)/10+'K':String(n);
+const FAR = n => n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?n.toLocaleString('uk-UA'):String(n);
 
 const domains = [
   {d:'mm.1xbet.com',      own:true,  dr:87, ar:3345,       kw:72,  top3:54,  t410:18, t1120:0, t2150:0, t51:0, traffic:13069,  rd:2188},
@@ -194,7 +195,7 @@ document.getElementById('comp-table').innerHTML = domains.map(d=>{
   const rowCls = d.own?' class="own"':'';
   const drBadge = d.dr>=70?'pos-good':d.dr>=45?'pos-mid':'pos-bad';
   const trBadge = d.traffic>10000?'pos-good':d.traffic>2000?'pos-mid':'pos-bad';
-  const ownTrBadge = d.own?(d.traffic>10000?'pos-good':'pos-mid'):'';
+  const ownTrBadge = d.own?(d.traffic>5000?'pos-good':'pos-mid'):'';
   return `<tr${rowCls}>
     <td><div class="domain-cell">${d.own?'<span class="own-tag">НАШ</span>':''}<span>${d.d}</span></div></td>
     <td><span class="pos-badge ${drBadge}">${d.dr}</span></td>
@@ -211,7 +212,7 @@ document.getElementById('comp-table').innerHTML = domains.map(d=>{
 const maxTr = Math.max(...domains.map(d=>d.traffic));
 document.getElementById('traffic-bars').innerHTML = domains.map(d=>{
   const pct = maxTr>0?Math.min(100,d.traffic/maxTr*100):0;
-  const col = d.own?'linear-gradient(90deg,#8B0000,#C8102E)':'#94a3b8';
+  const col = d.own?'linear-gradient(90deg,#032EA1,#2563eb)':'#94a3b8';
   return `<div class="bar-row">
     <div class="bar-label">${d.own?'<b>':''}<span style="font-size:11px">${d.d}</span>${d.own?'</b>':''}</div>
     <div class="bar-track"><div class="bar-fill" style="width:${pct.toFixed(1)}%;background:${col}"></div></div>
@@ -221,7 +222,7 @@ document.getElementById('traffic-bars').innerHTML = domains.map(d=>{
 
 // DR bars
 document.getElementById('dr-bars').innerHTML = domains.map(d=>{
-  const col = d.own?'#C8102E':d.dr>=70?'#16a34a':d.dr>=45?'#ca8a04':'#94a3b8';
+  const col = d.own?'#032EA1':d.dr>=70?'#16a34a':d.dr>=45?'#ca8a04':'#94a3b8';
   return `<div class="dr-row">
     <div class="dr-label" style="${d.own?'font-weight:700':''}">${d.d}</div>
     <div class="dr-track"><div class="dr-fill" style="width:${d.dr}%;background:${col}"></div></div>
